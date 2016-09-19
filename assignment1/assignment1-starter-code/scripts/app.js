@@ -15,12 +15,12 @@ angular.module('ass1App', [])
 
     function checkLunch(string) {
       $scope.lunchMenuArr = $scope.lunch.split(',');
-      $scope.menuSize = $scope.lunchMenuArr.length;
+      $scope.menuSize = $scope.lunchMenuArr.length - 1;
       var lunchCheckResult = "";
 
       if ($scope.menuSize == 0) {
         lunchCheckResult = "Please enter data first";
-      } else if ($scope.menuSize <= 3) {
+      } else if ($scope.menuSize <= 2) {
         lunchCheckResult = "Enjoy!";
       } else {
         lunchCheckResult = "Too much!";
