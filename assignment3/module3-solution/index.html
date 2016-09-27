@@ -19,14 +19,16 @@
                         <input type="text" placeholder="search term" class="form-control" ng-model="menu.searchTerm">
                     </div>
                     <div class="form-group narrow-button col-sm-3 col-sm-pull-1">
-                        <button class="form-control btn btn-primary" ng-click="menu.filter()">Narrow It Down For Me!</button>
+                        <button class="form-control btn btn-primary" ng-click="menu.narrow(menu.searchTerm)">Narrow It Down For Me!</button>
                     </div>
                 </div>
 
                 <div class="row">
+                    <h4>{{menu.found.length}} items found</h4>
                     <ul>
-                        <li ng-repeat="item in menu.menu_items">
-                           item name: {{item.name}}
+                        <li ng-repeat="item in menu.found">
+                           <strong>{{item.name}}</strong>
+                            <p>{{item.description}}</p>
                         </li>
                     </ul>
                 </div>

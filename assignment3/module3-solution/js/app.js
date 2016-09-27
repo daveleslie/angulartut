@@ -10,45 +10,25 @@
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
         var menu = this;
+        menu.searchTerm = '';
 
-        //menu.searchTerm = '';
-        //var promise = MenuSearchService.getMatchedMenuItems();
-        //console.log("promise: "+promise);
-        //promise.then(function (result) {
-        //    menu.found = result.data;
-        //    console.log("result.data.foundItems: "+result.foundItems);
-        //    console.log("menu.found: "+menu.found);
-        //})
-        //    .catch(function (error) {
-        //        console.log("something went wrong.");
-        //    });
-
-
-
-        //menu.filter = function(searchTerm) {
-        //    MenuSearchService.getMatchedMenuItems(searchTerm);
-        //};
-
-
-        var promise = MenuSearchService.getMatchedMenuItems();
-        //console.log("menu_items: "+menu.menu_items);
-        console.log("promise: "+promise);
-
+        var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
         promise.then(function (response) {
-            menu.menu_items = response.data;
-        })
+            menu.found = response;
+            })
             .catch(function (error) {
                 console.log("error in controller")
             });
-        //promise.then(function (response) {
-        //    console.log(response.data);
-        //    menu.menu_items = response.data.menu_items;
-        //    //menu.menu_items = menu.menu_items_array[0];
-        //    //console.log("Menu Items Array: "+menu.menu_items_array.menu_items)
-        //})
-        //    .catch(function (error) {
-        //        console.log("Oops. Something went wrong.")
-        //    });
+
+        menu.narrow = function(searchTerm) {
+            MenuSearchService.getMatchedMenuItems(searchTerm)
+                .then(function (response) {
+                    menu.found = response;
+                })
+                .catch(function (error) {
+                   console.log("error in click function");
+                });
+        };
 
     }
 
@@ -56,29 +36,27 @@
     function MenuSearchService($http, APIBasePath) {
         var service = this;
 
-        //service.getMatchedMenuItems = function() {
-        //    return $http({method:"GET", url: (APIBasePath+"/menu_items.json")})
-        //        .then(function (result) {
-        //            // filter result based on search terms
-        //            var foundItems = result.data.menu_items;
-        //            //console.log("foundItems: "+foundItems);
-        //            //return the processed items
-        //            return foundItems;
-        //        });
-        //};
-
-
-
-        service.getMatchedMenuItems = function() {
-
+        service.getMatchedMenuItems = function(searchTerm) {
             return $http({method: "GET", url: (APIBasePath+"/menu_items.json")})
                 .then(function (response) {
-                    var foundItems = response.data.menu_items;
-                    //console.log("foundItems:"+foundItems);
+                    // process the result and only keep items that match
+                    var allItems = response.data.menu_items;
+                    var foundItems = [];
+                    console.log("AllfoundItems: "+allItems.length);
+                    console.log(searchTerm);
+                    console.log(allItems[0].name);
+                    for (var i = 0; i < allItems.length; i++) {
+                        var str = allItems[i].description;
+                        //console.log(str);
+                        if (str.toLowerCase().indexOf(searchTerm) >= 0) {
+                            foundItems.push(allItems[i]);
+                        }
+                    }
+                    console.log("filteredfoundItems: "+foundItems.length);
                     return foundItems;
                 })
                 .catch(function (error) {
-                    console.log("error in service method");
+                        console.log("error in service method");
                 });
 
 
