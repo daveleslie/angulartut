@@ -4,27 +4,39 @@
 
     app.controller('NarrowItDownController', NarrowItDownController);
     app.service('MenuSearchService', MenuSearchService);
-    app.directive('foundItems', foundItems);
+    //app.directive('foundItems', foundItems);
+    app.constant('APIBasePath', "http://davids-restaurant.herokuapp.com");
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-        var controller = this;
+        var menu = this;
 
-        controller.getMatchedMenuItems = function(searchTerm) {
-            controller.found = MenuSearchService.getMatchedMenuItems(searchTerm)
-        };
+        var promise = MenuSearchService.getMatchedMenuItems();
+
+        promise.then(function (response) {
+            console.log(response.data);
+            menu.menu_items = response.data.menu_items;
+            //menu.menu_items = menu.menu_items_array[0];
+            //console.log("Menu Items Array: "+menu.menu_items_array.menu_items)
+        })
+            .catch(function (error) {
+                console.log("Oops. Something went wrong.")
+            });
+
     }
 
-    function MenuSearchService() {
+    MenuSearchService.$inject = ['$http', 'APIBasePath'];
+    function MenuSearchService($http, APIBasePath) {
         var service = this;
 
-        service.getMatchedMenuItems = function(searchTerm) {
-
+        service.getMatchedMenuItems = function() {
+            var foundItems = $http({
+                method: "GET",
+                url: (APIBasePath+"/menu_items.json")
+            });
+            return foundItems;
         };
     }
 
-    function foundItems() {
-
-    }
 
 })();
