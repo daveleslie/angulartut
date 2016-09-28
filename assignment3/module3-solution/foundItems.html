@@ -1,7 +1,14 @@
 <h4>{{menu.title}}</h4>
 <ul>
-    <li ng-repeat="item in menu.found">
-        <strong>{{item.name}}</strong>
-        <p>{{item.description}}</p>
+    <li ng-repeat="item in menu.items">
+        <div class="row">
+            <div class="col-sm-8">
+                <strong>{{item.name}}</strong> ({{item.short_name}})
+                <p>{{item.description}}</p>
+            </div>
+            <div class="col-sm-4">
+                <button ng-click="menu.onRemove({index: $index});" class="btn btn-sm btn-danger">Don't want this one!</button>
+            </div>
+        </div>
     </li>
 </ul>

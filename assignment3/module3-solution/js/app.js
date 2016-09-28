@@ -1,27 +1,41 @@
 (function () {
     'use strict';
-    var app = angular.module('NarrowItDown', []);
+    angular.module('NarrowItDown', [])
 
-    app.controller('NarrowItDownController', NarrowItDownController);
-    app.service('MenuSearchService', MenuSearchService);
-    app.directive('foundItems', foundItems);
-    app.constant('APIBasePath', "http://davids-restaurant.herokuapp.com");
+        .controller('NarrowItDownController', NarrowItDownController)
+        //.controller('FoundItemsDirectiveController', FoundItemsDirectiveController)
+        .service('MenuSearchService', MenuSearchService)
+        .directive('foundItems', FoundItemsDirective)
+        .constant('APIBasePath', "https://davids-restaurant.herokuapp.com");
 
-    function foundItems() {
+
+    function FoundItemsDirective() {
         var ddo = {
             templateUrl: 'foundItems.html',
             scope: {
-                items: '=',
-                title: '@'
-                //narrow: '&'
-                //onRemove: '&?'
+                items: '<',
+                title: '@',
+                onRemove: '&'
             },
             controller: NarrowItDownController,
             controllerAs: 'menu',
             bindToController: true
+            //link: FoundItemsLink
+            //transclude: true
         };
         return ddo;
     }
+
+    //function FoundItemsLink(scope, element, attrs, controller) {
+    //    console.log("Link scope is: "+ scope);
+    //    console.log("controller is: "+ controller);
+    //    console.log("element is: "+ element);
+    //}
+    //
+    //function FoundItemsDirectiveController() {
+    //    var menu = this;
+    //
+    //}
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
@@ -31,7 +45,7 @@
         var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
         promise.then(function (response) {
             menu.found = response;
-            menu.title = menu.found.length;
+            menu.title = (menu.found.length+" item(s) found");
             })
             .catch(function (error) {
                 console.log("error in controller")
@@ -41,14 +55,18 @@
             MenuSearchService.getMatchedMenuItems(searchTerm)
                 .then(function (response) {
                     menu.found = response;
-                    menu.title = (menu.found.length+" items found");
-                    console.log("narrow clicked: "+searchTerm);
-                    console.log("narrowed items: "+menu.title);
-                    console.log("menu.found: "+menu.found);
+                    menu.title = (menu.found.length+" item(s) found");
                 })
                 .catch(function (error) {
                    console.log("error in click function");
                 });
+        };
+
+        menu.removeItem = function(itemIndex) {
+            menu.found.splice(itemIndex, 1);
+            console.log("item removed");
+            menu.title = (menu.found.length+" item(s) found");
+            console.log(menu.title);
         };
 
     }
