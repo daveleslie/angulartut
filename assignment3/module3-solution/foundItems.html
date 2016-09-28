@@ -1,13 +1,13 @@
 <h4>{{menu.title}}</h4>
-<ul>
-    <li ng-repeat="item in menu.items">
+<ul class="list-group">
+    <li ng-repeat="item in menu.items" class="list-group-item">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <strong>{{item.name}}</strong> ({{item.short_name}})
-                <p>{{item.description}}</p>
+                <p style="font-style: italic;">{{item.description}}</p>
             </div>
-            <div class="col-sm-4">
-                <button ng-click="menu.onRemove({index: $index});" class="btn btn-sm btn-danger">Don't want this one!</button>
+            <div class="col-sm-2 text-right">
+                <button ng-click="menu.onRemove({index: $index});" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-remove" style="color: red;"></span> Don't want this one!</button>
             </div>
         </div>
     </li>
