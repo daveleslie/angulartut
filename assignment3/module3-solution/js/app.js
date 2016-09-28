@@ -15,10 +15,10 @@
                 title: '@'
                 //narrow: '&'
                 //onRemove: '&?'
-            }
-            //controller: NarrowItDownController,
-            //controllerAs: 'menu',
-            //bindToController: true
+            },
+            controller: NarrowItDownController,
+            controllerAs: 'menu',
+            bindToController: true
         };
         return ddo;
     }
@@ -28,14 +28,14 @@
         var menu = this;
         menu.searchTerm = '';
         //menu.found = "testing";
-        //var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
-        //promise.then(function (response) {
-        //    menu.found = response;
-        //    menu.title = menu.found.length;
-        //    })
-        //    .catch(function (error) {
-        //        console.log("error in controller")
-        //    });
+        var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
+        promise.then(function (response) {
+            menu.found = response;
+            menu.title = menu.found.length;
+            })
+            .catch(function (error) {
+                console.log("error in controller")
+            });
 
         menu.narrow = function(searchTerm) {
             MenuSearchService.getMatchedMenuItems(searchTerm)
