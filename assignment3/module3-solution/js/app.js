@@ -4,26 +4,47 @@
 
     app.controller('NarrowItDownController', NarrowItDownController);
     app.service('MenuSearchService', MenuSearchService);
-    //app.directive('foundItems', foundItems);
+    app.directive('foundItems', foundItems);
     app.constant('APIBasePath', "http://davids-restaurant.herokuapp.com");
+
+    function foundItems() {
+        var ddo = {
+            templateUrl: 'foundItems.html',
+            scope: {
+                items: '=',
+                title: '@'
+                //narrow: '&'
+                //onRemove: '&?'
+            }
+            //controller: NarrowItDownController,
+            //controllerAs: 'menu',
+            //bindToController: true
+        };
+        return ddo;
+    }
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
         var menu = this;
         menu.searchTerm = '';
-
-        var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
-        promise.then(function (response) {
-            menu.found = response;
-            })
-            .catch(function (error) {
-                console.log("error in controller")
-            });
+        //menu.found = "testing";
+        //var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
+        //promise.then(function (response) {
+        //    menu.found = response;
+        //    menu.title = menu.found.length;
+        //    })
+        //    .catch(function (error) {
+        //        console.log("error in controller")
+        //    });
 
         menu.narrow = function(searchTerm) {
             MenuSearchService.getMatchedMenuItems(searchTerm)
                 .then(function (response) {
                     menu.found = response;
+                    menu.title = (menu.found.length+" items found");
+                    console.log("narrow clicked: "+searchTerm);
+                    console.log("narrowed items: "+menu.title);
+                    console.log("menu.found: "+menu.found);
                 })
                 .catch(function (error) {
                    console.log("error in click function");
@@ -42,9 +63,9 @@
                     // process the result and only keep items that match
                     var allItems = response.data.menu_items;
                     var foundItems = [];
-                    console.log("AllfoundItems: "+allItems.length);
-                    console.log(searchTerm);
-                    console.log(allItems[0].name);
+                    //console.log("AllfoundItems: "+allItems.length);
+                    //console.log(searchTerm);
+                    //console.log(allItems[0].name);
                     for (var i = 0; i < allItems.length; i++) {
                         var str = allItems[i].description;
                         //console.log(str);
@@ -52,7 +73,7 @@
                             foundItems.push(allItems[i]);
                         }
                     }
-                    console.log("filteredfoundItems: "+foundItems.length);
+                    //console.log("filteredfoundItems: "+foundItems.length);
                     return foundItems;
                 })
                 .catch(function (error) {
