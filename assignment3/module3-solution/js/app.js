@@ -15,7 +15,8 @@
             scope: {
                 items: '<',
                 title: '@',
-                onRemove: '&'
+                onRemove: '&',
+                search: '<'
             },
             controller: NarrowItDownController,
             controllerAs: 'menu',
@@ -56,6 +57,7 @@
                 .then(function (response) {
                     menu.found = response;
                     menu.title = (menu.found.length+" item(s) found");
+                    menu.filter = searchTerm;
                 })
                 .catch(function (error) {
                    console.log("error in click function");
