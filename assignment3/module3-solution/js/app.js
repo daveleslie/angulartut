@@ -43,14 +43,14 @@
         var menu = this;
         menu.searchTerm = '';
         //menu.found = "testing";
-        var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
-        promise.then(function (response) {
-            menu.found = response;
-            menu.title = (menu.found.length+" item(s) found");
-            })
-            .catch(function (error) {
-                console.log("error in controller")
-            });
+        //var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
+        //promise.then(function (response) {
+        //    menu.found = response;
+        //    menu.title = (menu.found.length+" item(s) found");
+        //    })
+        //    .catch(function (error) {
+        //        console.log("error in controller")
+        //    });
 
         menu.narrow = function(searchTerm) {
             MenuSearchService.getMatchedMenuItems(searchTerm)
@@ -86,13 +86,19 @@
                     //console.log("AllfoundItems: "+allItems.length);
                     //console.log(searchTerm);
                     //console.log(allItems[0].name);
-                    for (var i = 0; i < allItems.length; i++) {
-                        var str = allItems[i].description;
-                        //console.log(str);
-                        if (str.toLowerCase().indexOf(searchTerm) >= 0) {
-                            foundItems.push(allItems[i]);
+                    if (searchTerm.length == 0) {
+                        allItems = [];
+                    } else {
+                        for (var i = 0; i < allItems.length; i++) {
+                            var str = allItems[i].description;
+                            //console.log(str);
+                            if (str.toLowerCase().indexOf(searchTerm) >= 0) {
+                                foundItems.push(allItems[i]);
+                            }
                         }
                     }
+
+
                     //console.log("filteredfoundItems: "+foundItems.length);
                     return foundItems;
                 })
