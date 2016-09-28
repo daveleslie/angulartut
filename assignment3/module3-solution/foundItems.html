@@ -1,6 +1,6 @@
 
 <ul class="list-group">
-    <li ng-if="menu.items.length == 0" class="list-group-item active"><span class="badge">{{menu.items.length}}</span><strong> Nothing found! </strong></li>
+    <li ng-if="menu.items.length == 0" class="list-group-item list-group-item-danger text-center"><strong> Nothing found! </strong></li>
     <li ng-if="menu.items.length >= 1" class="list-group-item active"><span class="badge">{{menu.items.length}}</span><strong> Items containing: {{menu.search}}</strong></li>
     <li ng-repeat="item in menu.items" class="list-group-item">
         <div class="row">
