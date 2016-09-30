@@ -16,7 +16,7 @@
             <div ng-controller="NarrowItDownController as menu">
                 <div class="row">
                     <div class="form-group col-sm-3">
-                        <input type="text" placeholder="search term" class="form-control" ng-model="menu.searchTerm">
+                        <input type="text" placeholder="search term" class="form-control" ng-model="menu.searchTerm" ng-keyup="$event.keyCode == 13 ? menu.narrow(menu.searchTerm) : null">
                     </div>
                     <div class="form-group narrow-button col-sm-3 col-sm-pull-1">
                         <button class="form-control btn btn-primary" ng-click="menu.narrow(menu.searchTerm);">
