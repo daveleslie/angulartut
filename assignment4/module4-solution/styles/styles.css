@@ -55,7 +55,8 @@ li {
     padding-top: 0;
 }
 
-.spinnerrow {
+.loading-icon {
   position: absolute;
-  text-align: center;
+  left: 50%;
+  top: 50%;
 }
