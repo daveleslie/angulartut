@@ -1,0 +1,12 @@
+<!--<h3>Menu Items List</h3>-->
+<ul class="list-group">
+    <li class="list-group-item active">
+        <span class="badge">{{$ctrl.items.length}}</span>
+        <strong>{{$ctrl.details.name}}</strong>
+        <p style="font-style: italic">{{$ctrl.details.special_instructions}}</p>
+    </li>
+    <li ng-repeat="item in $ctrl.items" class="list-group-item">
+        <strong>{{item.name}}</strong> ({{item.short_name}})
+        <p style="font-style: italic">{{item.description}}</p>
+    </li>
+</ul>
