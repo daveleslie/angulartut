@@ -54,3 +54,8 @@ input[type="text"] {
 li {
     padding-top: 0;
 }
+
+.spinnerrow {
+  position: absolute;
+  text-align: center;
+}
