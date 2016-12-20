@@ -1,0 +1,17 @@
+{
+  "name": "assignment5",
+  "homepage": "https://github.com/daveleslie/angulartut",
+  "authors": [
+    "David <dave.leslie.online@gmail.com>"
+  ],
+  "description": "coursera fullstack-course5 assignment5",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
