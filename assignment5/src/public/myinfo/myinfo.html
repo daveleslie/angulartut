@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <h3 class="text-center">My Info</h3>    
+  </div>
+  <br>
+  <div class="row" ng-if="ctrl.user.fname !== undefined">
+    First Name: {{ctrl.user.fname}} 
+    <br>
+    Last Name: {{ctrl.user.lname}}
+    <br>
+    Email: {{ctrl.user.email}}
+    <br>
+    Phone: {{ctrl.user.phone}}
+    <br>
+    <h4>Favourite Dish</h4>
+    <menu-item menu-item="ctrl.user.favDish"></menu-item>
+  </div>
+  <div class="row text-center" ng-if="ctrl.user.fname === undefined">
+    Not signed up yet. <a ui-sref="public.signup"> Sign up Now!</a> 
+  </div>
+</div>

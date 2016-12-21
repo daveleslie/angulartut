@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <h3 class="text-center">Sign up for our newsletter!</h3>
+    <hr>
+        
+  </div>
+  <div class="row">
+    <div class="col col-xs-6">
+      <form name="regForm" novalidate>
+        <fieldset>
+          <!--<legend>Registration</legend>-->
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input class="form-control" id="fname" type="text" name="fname" placeholder="Enter your first name" ng-model="sctrl.user.fname" required minlength="2">
+            <span ng-if="(regForm.fname.$error.minlength || regForm.fname.$error.required) && regForm.fname.$touched">First name must be at least 2 characters long</span>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input class="form-control" id="lname" type="text" name="lname" placeholder="Enter your last name" ng-model="sctrl.user.lname" minlength="2" required>
+            <span ng-if="(regForm.lname.$error.minlength || regForm.lname.$error.required) && regForm.lname.$touched">Last name must be at least 2 characters long</span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" name="email" placeholder="Enter your email address" ng-model="sctrl.user.email" required>
+            <span ng-if="regForm.email.$invalid && regForm.email.$touched">You must enter a valid email address</span>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" class="form-control" name="phone" placeholder="Enter your phone number" ng-model="sctrl.user.phone" required>
+            <span ng-if="regForm.phone.$error.required && regForm.phone.$touched">You must enter your phone number</span>
+          </div>
+          <div class="form-group">
+            <label for="favDish">Enter your favourite dish</label>
+            <input type="text" id="favDish" class="form-control" name="favDish" placeholder="Enter your favourite dish shortname" ng-model="sctrl.user.favDish" required>
+            <span ng-if="regForm.favDish.$error.required && regForm.favDish.$touched">You must enter your favourite dish</span>
+            <span ng-if="sctrl.dishErr">Cannot find menu item</span>
+          </div>
+          <button class="btn btn-default" ng-disabled="regForm.$invalid" ng-click="sctrl.submit(sctrl.user)">Submit</button>
+        </fieldset>  
+      </form>    
+    </div>
+    <div class="col-xs-6">
+      
+      
+    </div> 
+  </div>
+  <div class="row">
+    <br><br>
+    <div class="alert alert-success text-center" ng-if="sctrl.success">
+      User profile saved
+    </div>
+    
+  </div>    
+</div>

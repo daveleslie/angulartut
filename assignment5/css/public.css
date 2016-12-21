@@ -113,6 +113,12 @@ h3.menu-item-title {
 }
 /* END SINGLE CATEGORY PAGE */
 
+/* SIGNUP PAGE */
+
+legend {
+  color: white;
+}
+
 
 /********** Large devices only **********/
 @media (min-width: 1200px) {
